@@ -26,7 +26,7 @@ namespace WebAPILibros.Controllers
         }
 
         //SELECT BY AUTHORID
-        [HttpGet("libros/{autorId}")]
+        [HttpGet("autor/{autorId}")]
         public ActionResult<IEnumerable<Libro>> Get(int autorId)
         {
             List<Libro> libros = (from l in context.Libros
