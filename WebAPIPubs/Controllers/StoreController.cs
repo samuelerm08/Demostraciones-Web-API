@@ -34,6 +34,36 @@ namespace WebAPIPubs.Controllers
             return store;
         }
 
+        //GetByName
+        [HttpGet("names/{name}")]
+        public ActionResult<Store> GetByName(string name)
+        {
+            Store store = (from s in context.Stores
+                           where name == s.StorName
+                           select s).SingleOrDefault();
+            return store;
+        }
+
+        //GetByZip
+        [HttpGet("zip/{zip}")]
+        public ActionResult<IEnumerable<Store>> GetByZip(string zip)
+        {
+            List<Store> stores = (from s in context.Stores
+                                  where zip == s.Zip
+                                  select s).ToList();
+            return stores;
+        }
+
+        //GetByCityState
+        [HttpGet("state/{state}")]
+        public ActionResult<IEnumerable<Store>> GetByCityState(string state)
+        {
+            List<Store> stores = (from s in context.Stores
+                                  where state == s.State
+                                  select s).ToList();
+            return stores;
+        }
+
         //Put                        
         [HttpPut("{id}")]
         public ActionResult Put(string id, Store s)
@@ -63,12 +93,12 @@ namespace WebAPIPubs.Controllers
         }
 
         //Delete
-        [HttpDelete("{id}")]
-        public ActionResult<Store> Delete(string id)
+        [HttpDelete("{idStor}")]
+        public ActionResult<Store> Delete(string idStor)
         {
             Store store = (from s in context.Stores
-                         where s.StorId == id
-                         select s).SingleOrDefault();
+                           where idStor == s.StorId
+                           select s).SingleOrDefault();
 
             if (store == null)
             {
